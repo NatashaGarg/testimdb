@@ -190,6 +190,65 @@ $i = 0;
  --> 
  <script type="text/javascript">
     
+	
+	var div = document.getElementsByClassName("lister-item-image");        
+        
+
+	
+/*	var divTable = document.getElementById("results");
+	divTable.style.visibility = "visible";
+*/	
+	    
+var count =0;
+    for(var i=0;i<3;i++){
+    var movieId = div[i].getAttribute("data-tconst");
+            if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("temp-review-"+(i+1)).innerHTML = xmlhttp.responseText;
+                populateReviews(i+1);
+            }
+        };
+        xmlhttp.open("GET","reviewFunc.php?movieId="+movieId,false);
+        xmlhttp.send();
+
+        $.getJSON("http://www.omdbapi.com/?i="+movieId, function(result){
+            var thumb = result.Poster;
+            var title = result.Title;
+            var year = result.Year;
+            var rated = result.Rated;
+            var genre = result.Genre;
+            var runtime = result.Runtime;
+            var imdbRating = result.imdbRating;
+            var imdbVotes = result.imdbVotes;
+            // alert(" Thumb "+thumb+"Title: "+title+" Year: "+year+" Rated: "+rated+" Genre: "+genre+" Runtime: "+runtime+" IMDB Rating: "+imdbRating+" IMDB Votes: "+imdbVotes);
+                   //Do something about documentary
+                count++;
+                   var tdPoster = document.getElementById("tr-"+count+"-poster");
+                   if(thumb!="N/A"){
+				   var posterNode = document.createElement("img");
+				   posterNode.src = thumb;
+				   tdPoster.appendChild(posterNode);
+				   }else{
+				   tdPoster.innerHTML = "No Image";
+				   }
+				   
+                   var tdDetails = document.getElementById("tr-"+count+"-details");
+                   tdDetails.innerHTML = "Title: "+title+"| Year: "+year+"| Rated: "+rated+"| Genre: "+genre+"| Runtime: "+runtime+"| IMDB Rating: "+imdbRating+"| IMDB Votes: "+imdbVotes;
+
+                   var tdReviews = document.getElementById("tr-"+count+"-reviews");
+                  //lert(count);
+            });
+	}
+	
+	$('#resultDiv').remove();
+	
 
 /*$( document ).ready(function() {
 
