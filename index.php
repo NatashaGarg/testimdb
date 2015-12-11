@@ -189,6 +189,37 @@ $i = 0;
     <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
  --> 
  <script type="text/javascript">
+    
+
+/*$( document ).ready(function() {
+
+$('#resultDiv').remove();
+    console.log( "ready!" );
+});
+*/ 
+function populateReviews(k){
+	var div = document.getElementById("tn15content");
+	var reviews = div.getElementsByTagName("p");
+	var divs = div.getElementsByTagName("div");
+	var count = 0;
+	var usefulDivs = [];
+	for(var i=0; i<3; i++){
+		var total = divs[i*2].getElementsByTagName("small")[0].innerHTML;
+		var totalDisplay = total.split(":")[0];
+		var title = divs[i*2].getElementsByTagName("h2")[0].innerHTML;
+		var user = divs[i*2].getElementsByTagName("a")[1].innerHTML;
+		var loc = divs[i*2].getElementsByTagName("small")[1].innerHTML;
+		var date = divs[i*2].getElementsByTagName("small")[2].innerHTML;
+		var review = reviews[i].innerHTML;
+		var display = "<b>"+title+"</b></br>("+user+" "+loc+")</br>"+review;
+	//	alert("d-"+k+"-"+(i+1));
+		var field = document.getElementById("d-"+k+"-"+(i+1));
+		field.innerHTML = display;
+		//alert(review);
+	}
+	$('#temp-review-'+k).remove();
+}
+
  </script>
 
   </body>
