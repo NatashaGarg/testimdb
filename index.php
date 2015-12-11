@@ -140,6 +140,29 @@
 
     
 <div id="dom-target" style=";">
+<?php
+if((isset($_GET["actorFirst"]) && !empty($_GET["actorFirst"])) || (isset($_GET["actorLast"]) && !empty($_GET["actorLast"]))){
+$first = $_GET["actorFirst"];
+$last = $_GET["actorLast"];
+$name = $first."%20".$last;
+echo $name.'</br>';
+$url = "http://www.imdb.com/xml/find?json=1&nr=1&nm=on&q=".$name;
+//echo $url.'</br>';
+$str = file_get_contents($url);
+$content = file_get_contents($url);
+$json = json_decode($content, true);
+$names = $json['name_popular'];
+$id = $names[0]['id'];
+//echo $id.'</br>';
+
+
+
+echo $content;
+}else{
+/*echo '<script type="text/javascript">var divTable = document.getElementById("results");divTable.style.visibility = "hidden";</script>';
+*/}
+$i = 0;
+?>
 
 </div>
 <div id="temp-review-1">
